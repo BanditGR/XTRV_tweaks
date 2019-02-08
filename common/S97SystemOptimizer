@@ -1,0 +1,162 @@
+#!/system/bin/sh
+# Optimizing your device
+# Created Aris setiawan @ 2014
+# Modified script by BanditGR @ xiaomi-miui.gr
+# 1.1 Added more tweaks, commented out bad code that does nothing
+# 1.2 Corrections
+
+#Set a working path
+cd /data/
+
+# Smart mounting
+#mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /cache /cache;
+#mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /data /data;
+
+# Tweaking processes at wake modified by me (Thanks Slaid480@XDA)
+# Corrected by BanditGR @ xiaomi-miui.gr
+# v1.2 Corrected by BanditGR for Android Oreo
+renice -n 17 $(pidof com.miui.home) # MIUI Launcher
+renice -n 17 $(pidof com.teslacoilsw.launcher) # Nova Launcher
+renice -n 20 $(pidof com.android.phone) # Phone App
+renice -n 18 $(pidof com.android.contacts) # Contact App
+renice -n 18 $(pidof com.android.mms) # Text message app
+renice -n 18 $(pidof com.google.android.inputmethod.latin) # Keyboard
+renice -n 18 $(pidof com.nuance.swype.dtc) # Swype Keyboard
+renice -n 10 $(pidof com.sec.android.app.controlpanel) # Task manager
+renice -n 18 $(pidof com.android.systemui) # Status bar
+renice -n 18 $(pidof com.android.settings) # Settings menu
+renice -n 17 $(pidof com.android.vending) # Market app
+renice -n 15 $(pidof com.android.camera) # Camera app
+renice -n 18 $(pidof com.android.browser) # Browser app
+renice -n 18 $(pidof mobi.mgeek.TunnyBrowser) # Dolphin Browser app
+renice -n 18 $(pidof org.mozilla.firefox) # Firefox Browser app
+renice -n 3 $(pidof com.android.providers.media) # Media app
+renice -n 15 $(pidof com.google.android.gms) # Google app
+renice -n 3 $(pidof com.process.acore)
+renice -n 3 $(pidof android.process.acore)
+
+
+# Touch Tweaks
+# Only execute if the system supports set_touchscreen
+if [ -e /sys/class/touch/switch/set_touchscreen ]; then
+echo 7025 > /sys/class/touch/switch/set_touchscreen;
+echo 8002 > /sys/class/touch/switch/set_touchscreen;
+echo 11001 > /sys/class/touch/switch/set_touchscreen;
+echo 13030 > /sys/class/touch/switch/set_touchscreen;
+echo 14005 > /sys/class/touch/switch/set_touchscreen;
+fi;
+
+# Network Speed Tweaks
+echo 0 > /proc/sys/net/ipv4/tcp_timestamps
+echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
+echo 1 > /proc/sys/net/ipv4/tcp_sack
+echo 1 > /proc/sys/net/ipv4/tcp_tw_recycle
+echo 1 > /proc/sys/net/ipv4/tcp_window_scaling
+echo 5 > /proc/sys/net/ipv4/tcp_keepalive_probes
+echo 30 > /proc/sys/net/ipv4/tcp_keepalive_intvl
+echo 900 > /proc/sys/net/ipv4/tcp_keepalive_time
+echo 30 > /proc/sys/net/ipv4/tcp_fin_timeout
+echo 404480 > /proc/sys/net/core/wmem_max
+echo 404480 > /proc/sys/net/core/rmem_max
+echo 256960 > /proc/sys/net/core/rmem_default
+echo 256960 > /proc/sys/net/core/wmem_default
+echo 4096 16384 404480 > /proc/sys/net/ipv4/tcp_wmem
+echo 4096 16384 404480 > /proc/sys/net/ipv4/tcp_rmem
+
+# Kill media app
+# Better to just use busybox here
+busybox pkill -9 android.process.media;
+busybox pkill -9 mediaserver;
+
+# Optimizing flags
+# This doesn't appear to do anything either, code is missing in do loop
+#LOOP=`ls -d /sys/block/loop*`;
+#RAM=`ls -d /sys/block/ram*`;
+#MMC=`ls -d /sys/block/mmc*`;
+#for j in $LOOP $RAM
+#do
+#echo "0" 
+#done
+
+# Hard rock kernel tweaks.
+echo 0 > /proc/sys/vm/panic_on_oom
+echo 0 > /proc/sys/kernel/panic
+echo 0 > /proc/sys/kernel/panic_on_oops
+
+# Sd Card Read Write Speed
+# A previous script already set these values
+#echo "2048" > /sys/devices/virtual/bdi/179:32/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/7:0/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/7:1/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/7:2/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/7:3/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/7:4/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/7:5/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/7:6/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/7:7/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/179:0/read_ahead_kb
+#echo "2048" > /sys/devices/virtual/bdi/default/read_ahead_kb
+echo "97" > /sys/devices/virtual/bdi/default/max_ratio
+echo "97" > /sys/devices/virtual/bdi/179:0/max_ratio
+
+# Kernel | fs tweak
+sysctl -w kernel.msgmni=1024
+sysctl -w kernel.msgmax=64000
+sysctl -w kernel.shmmax=268435456
+sysctl -w kernel.shmall=2097152
+sysctl -w kernel.sem="500 512000 100 2048"
+sysctl -w kernel.threads-max=10000
+sysctl -w fs.lease-break-time=10
+sysctl -w fs.file-max=65536
+
+
+# New I/O Boost Tweak and Misc Experimental Tweaks
+# MCPS
+if [ -f "/sys/devices/system/cpu/sched_mc_power_savings" ]; then
+busybox echo "1" > /sys/devices/system/cpu/sched_mc_power_savings;
+fi;
+
+# I/O boost tweak
+for S in /sys/block/*
+do
+  if [ -f $S/queue/rq_affinity ]; then
+    busybox echo "1" > $S/queue/rq_affinity
+  fi
+	if [ -f $S/queue/rotational ]; then
+		busybox echo "0" > $S/queue/rotational
+	fi
+	if [ -f $S/queue/iostats ]; then
+		busybox echo "0" > $S/queue/iostats
+	fi
+	if [ -f $S/queue/nomerges ]; then
+		busybox echo "1" > $S/queue/nomerges
+	fi
+	if [ -e $S/queue/add_random ]; then
+		busybox echo "0" > $S/queue/add_random
+    fi
+done
+
+# Activating I/O extended queue
+MMC=/sys/block/mmc*
+for S in $MMC;
+do
+	if [ -f $S/queue/nr_requests ]; then
+		busybox echo "1024" > $S/queue/nr_requests
+	fi
+done
+
+# Kernel samepage merging
+if [ -f "/sys/kernel/mm/ksm" ]; then
+busybox chmod 644 /sys/kernel/mm/ksm/*
+busybox echo "1" > /sys/kernel/mm/ksm/run
+busybox echo "64" > /sys/kernel/mm/ksm/pages_to_scan
+busybox echo "500" > /sys/kernel/mm/ksm/sleep_millisecs
+fi;
+
+
+# Ram tweaks
+# This doesn't work
+#/bin/mount -o remount,rw /
+#/bin/rm -r /voodoo/root/usr/*
+#/bin/mount -o remount,ro /
+#rngd

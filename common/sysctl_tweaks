@@ -1,0 +1,3 @@
+#!/system/bin/sh
+#Modified script by BanditGR @ xiaomi-miui.gr
+sysctl -p

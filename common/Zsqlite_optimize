@@ -1,0 +1,86 @@
+#!/system/bin/sh
+# Optimize SQlite databases of apps
+#Modified script by BanditGR @ xiaomi-miui.gr
+#Credits to McByte jkSGS3
+# and ImbaWind @ XDA
+#v1.1 Added SQLite3 binary location for ROMs that do not natively include the file
+
+# Log file location
+     LOG_FILE=/data/sqlite.log
+ 
+#SQLite3 binary location
+#You need to put your own path here, if you don't the script will NOT work
+	SQLITEBIN=/system/xbin
+ 
+#Interval between SQLite3 runs, in seconds, 604800=1 week, 432000=5 days
+     RUN_EVERY=432000
+
+# Get the last modify date of the Log file, if the file does not exist, set value to 0     
+     if [ -e $LOG_FILE ]; then
+  	#LASTRUN=`stat -f $LOG_FILE | awk '{print $14}'`
+     LASTRUN=`stat -c %Y $LOG_FILE`
+	else
+		LASTRUN=0
+	fi;
+     
+# Get current date in epoch format
+	CURRDATE=`date +%s`
+
+# Check the interval
+	INTERVAL=$(expr $CURRDATE - $LASTRUN)
+
+# If interval is more than the set one, then run the main script
+
+if [ $INTERVAL -gt $RUN_EVERY ];then
+	
+	if [ -e $LOG_FILE ]; then
+		rm $LOG_FILE;
+	fi;     
+#Set a working path	
+  cd /data/
+
+	echo "Now Optimizing SQlite databases" | tee -a $LOG_FILE;
+	echo "SQLite database VACUUM and REINDEX started at $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE;
+		for i in \
+		`busybox find /d* -iname "*.db"`; 
+		do \
+			$SQLITEBIN/sqlite3 $i 'VACUUM;'; 
+			resVac=$?
+			if [ $resVac == 0 ]; then
+				resVac="SUCCESS";
+			else
+				resVac="ERRCODE-$resVac";
+			fi;
+			
+			$SQLITEBIN/sqlite3 $i 'REINDEX;'; 
+			resIndex=$?
+			if [ $resIndex == 0 ]; then
+				resIndex="SUCCESS";
+			else
+				resIndex="ERRCODE-$resIndex";
+			fi;
+			echo "Database $i:  VACUUM=$resVac  REINDEX=$resIndex" | tee -a $LOG_FILE;
+		done;
+
+		for i in \
+		`busybox find /sdcard -iname "*.db"`; 
+		do \
+			$SQLITEBIN/sqlite3 $i 'VACUUM;'; 
+			resVac=$?
+			if [ $resVac == 0 ]; then
+				resVac="SUCCESS";
+			else
+				resVac="ERRCODE-$resVac";
+			fi;
+			
+			$SQLITEBIN/sqlite3 $i 'REINDEX;'; 
+			resIndex=$?
+			if [ $resIndex == 0 ]; then
+				resIndex="SUCCESS";
+			else
+				resIndex="ERRCODE-$resIndex";
+			fi;
+			echo "Database $i:  VACUUM=$resVac  REINDEX=$resIndex" | tee -a $LOG_FILE;
+		done;
+	echo "SQLite database VACUUM and REINDEX finished at $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE;
+fi;

@@ -1,0 +1,19 @@
+#!/system/bin/sh
+#Enable Documents App
+#Logfile Creation
+LOG1=/cache/documents.log;
+
+if [ -e $LOG1 ]; then
+	rm $LOG1;
+fi;
+
+if [ ! -f $LOG1 ]; then
+	touch $LOG1;
+	echo "This file is used for debugging purposes." | tee -a $LOG1;
+fi;
+
+uptime -s | tee -a $LOG1;
+echo "Enabling Documents App @ $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG1;
+sleep 60
+pm enable com.android.documentsui | tee -a $LOG1;
+echo "Script Done @ $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG1;

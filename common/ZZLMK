@@ -1,0 +1,32 @@
+#!/system/bin/sh
+#Adaptive LMK tweak script by BanditGR @ xiaomi-miui.gr, based partially on LSPEED script
+#1.0 - Initial corrected version
+#Experimental
+
+sleep 70
+
+#chmod 644 /sys/module/lowmemorykiller/parameters/adj
+#echo "0,1,3,5,7,15" > /sys/module/lowmemorykiller/parameters/adj
+
+# Cost (we are going with default kernel cost of 32 for now
+#if [ -e /sys/module/lowmemorykiller/parameters/cost ]; then
+#chmod 644 /sys/module/lowmemorykiller/parameters/cost
+#echo "64" > /sys/module/lowmemorykiller/parameters/cost
+#fi
+
+# Minfree Values
+RAM="$(($(awk '/MemTotal/{print $2}' /proc/meminfo)/1024))"
+
+lmk1=$(($RAM*2*1024/100/4));
+lmk2=$(($RAM*3*1024/100/4));
+lmk3=$(($RAM*4*1024/100/4));
+lmk4=$(($RAM*5*1024/100/4));
+lmk5=$(($RAM*6*1024/100/4));
+lmk6=$(($RAM*7*1024/100/4));
+
+#Debug
+#echo "$lmk1,$lmk2,$lmk3,$lmk4,$lmk5,$lmk6"
+
+chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+echo "$lmk1,$lmk2,$lmk3,$lmk4,$lmk5,$lmk6" > /sys/module/lowmemorykiller/parameters/minfree
+#default kernel (whyred)  is 18432, 23040, 27648, 32256, 80640, 140640
