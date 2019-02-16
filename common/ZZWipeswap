@@ -1,17 +1,15 @@
 #!/system/bin/sh
-# BanditGR @ Xiaomi-miui.gr. ALL credit goes to EarlyMon, the original author of the mod
+# Original script and ALL credit goes to EarlyMon @ XDA, the original author of the script
 # All rights recognised
+# Creative Commons Attribution-ShareAlike (CC BY-SA)
+# Comparable to the GPL, used by Wikipedia
+# Free to reuse and build derivatives
+# and license your derivatives under the same terms
 
 
-# Copyright EarlyMon @ XDA 2018 March 15
-
-# Usage: no arguments (see what I mean?)
+# Usage: no arguments
 # Run at init, late service, in a Magisk module
 
-# Creative Commons Attribution-ShareAlike (CC BY-SA) 
-# Comparable to the GPL, used by Wikipedia
-# Free to reuse and build derivatives, just credit me forever
-# and license your derivatives under the same terms
 
 # This script is designed to be a universal swap assassin
 # Yes, that includes zram, zram is just one type of swapregion
@@ -25,7 +23,6 @@
 #   0 - no swap, or no swap in /dev, or time's up
 
 # Exit if no swap in use,
-#   wish virtual beer upon the enlightened rom devs
 
 ROOTPATH=/sbin/.core/img
 XTRVID=redmi_note5_xtrv_tweaks
