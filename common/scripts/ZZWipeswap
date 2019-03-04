@@ -36,10 +36,11 @@ fi;
 
 # Do not disable swap if Total Memory is below 4GB, just exit
 MEM2="$(($(awk '/MemTotal/{print $2}' /proc/meminfo)))"
-if [ $MEM2 -lt 3800000 ]; then
+if [ $MEM2 -lt 3500000 ]; then
  #debug
- echo $MEM2 | tee -a /cache/test.log;
- echo "Exiting..."
+ #echo $MEM2 | tee -a /cache/test.log;
+ sleep 40
+ sysctl -e -w vm.swappiness=40
  exit 0
 fi
 
