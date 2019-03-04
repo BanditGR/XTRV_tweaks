@@ -38,6 +38,7 @@ fi;
 MEM2="$(($(awk '/MemTotal/{print $2}' /proc/meminfo)))"
 if [ $MEM2 -lt 3800000 ]; then
  #debug
+ echo $MEM2 | tee -a /cache/test.log;
  echo "Exiting..."
  exit 0
 fi
