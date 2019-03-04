@@ -117,6 +117,7 @@ set_permissions() {
 script_install() {
     ui_print ""
     ui_print "Now installing sh scripts in the module common folder..."
+    mkdir -m 755 -p $MODPATH/scripts
 	cp -af $INSTALLER/common/scripts/09sdcardspeedfix $MODPATH/scripts/09sdcardspeedfix
 	cp -af $INSTALLER/common/scripts/S97MemoryTweaks $MODPATH/scripts/S97MemoryTweaks
 	cp -af $INSTALLER/common/scripts/S97SystemOptimizer $MODPATH/scripts/S97SystemOptimizer
