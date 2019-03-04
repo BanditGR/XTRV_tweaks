@@ -43,7 +43,7 @@ print_modname() {
   ui_print "************************************************"
   ui_print " Redmi Note 5 XTRV tweaks [Whyred]         "
   ui_print " by BanditGR @ Xiaomi-Miui Hellas  "
-  ui_print "                       v1.3                             "
+  ui_print "                       v1.4                             "
   ui_print "************************************************"
 }
 
@@ -93,13 +93,13 @@ set_permissions() {
   set_perm  $MODPATH/system/xbin/zipalign 0  0  0755  0755
   
   # Set permissions for script execution - Experimental
-  set_perm  $MODPATH/09sdcardspeedfix 0  0  0755  0755
-  set_perm  $MODPATH/S97MemoryTweaks 0  0  0755  0755
-  set_perm  $MODPATH/S97SystemOptimizer 0  0  0755  0755
-  set_perm  $MODPATH/sysctl_tweaks 0  0  0755  0755
-  set_perm  $MODPATH/Zsqlite_optimize 0  0  0755  0755
-  set_perm  $MODPATH/ZZEnableDocuments 0  0  0755  0755
-  set_perm  $MODPATH/ZZLMK 0  0  0755  0755
+  set_perm  $MODPATH/scripts/09sdcardspeedfix 0  0  0755  0755
+  set_perm  $MODPATH/scripts/S97MemoryTweaks 0  0  0755  0755
+  set_perm  $MODPATH/scripts/S97SystemOptimizer 0  0  0755  0755
+  set_perm  $MODPATH/scripts/sysctl_tweaks 0  0  0755  0755
+  set_perm  $MODPATH/scripts/Zsqlite_optimize 0  0  0755  0755
+  set_perm  $MODPATH/scripts/ZZEnableDocuments 0  0  0755  0755
+  set_perm  $MODPATH/scripts/ZZLMK 0  0  0755  0755
   set_perm  /data/adb/service.d/ZZWipeswap 0  0  0755  0755
 }
 
@@ -117,14 +117,14 @@ set_permissions() {
 script_install() {
     ui_print ""
     ui_print "Now installing sh scripts in the module common folder..."
-	cp -af $INSTALLER/common/09sdcardspeedfix $MODPATH/09sdcardspeedfix
-	cp -af $INSTALLER/common/S97MemoryTweaks $MODPATH/S97MemoryTweaks
-	cp -af $INSTALLER/common/S97SystemOptimizer $MODPATH/S97SystemOptimizer
-	cp -af $INSTALLER/common/sysctl_tweaks $MODPATH/sysctl_tweaks
-	cp -af $INSTALLER/common/Zsqlite_optimize $MODPATH/Zsqlite_optimize
-	cp -af $INSTALLER/common/ZZEnableDocuments $MODPATH/ZZEnableDocuments
-	cp -af $INSTALLER/common/ZZLMK $MODPATH/ZZLMK
-	cp -af $INSTALLER/common/ZZWipeswap /data/adb/service.d/ZZWipeswap
+	cp -af $INSTALLER/common/scripts/09sdcardspeedfix $MODPATH/scripts/09sdcardspeedfix
+	cp -af $INSTALLER/common/scripts/S97MemoryTweaks $MODPATH/scripts/S97MemoryTweaks
+	cp -af $INSTALLER/common/scripts/S97SystemOptimizer $MODPATH/scripts/S97SystemOptimizer
+	cp -af $INSTALLER/common/scripts/sysctl_tweaks $MODPATH/scripts/sysctl_tweaks
+	cp -af $INSTALLER/common/scripts/Zsqlite_optimize $MODPATH/scripts/Zsqlite_optimize
+	cp -af $INSTALLER/common/scripts/ZZEnableDocuments $MODPATH/scripts/ZZEnableDocuments
+	cp -af $INSTALLER/common/scripts/ZZLMK $MODPATH/scripts/ZZLMK
+	cp -af $INSTALLER/common/scripts/ZZWipeswap /data/adb/service.d/ZZWipeswap
 	ui_print ""
 	ui_print "- It is HIGHLY recommended to have Busybox installed."
 	ui_print "- osm0sis' Busybox can be downloaded and installed from the Magisk repository."

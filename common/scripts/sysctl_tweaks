@@ -1,0 +1,8 @@
+#!/system/bin/sh
+#Modified script by BanditGR @ xiaomi-miui.gr
+sysctl -p
+
+MEM1="$(($(awk '/MemTotal/{print $2}' /proc/meminfo)))"
+MFK=$(($MEM1*3/1024));
+
+sysctl -e -w  vm.min_free_kbytes=$MFK
