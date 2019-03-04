@@ -37,7 +37,8 @@ fi;
 # Do not disable swap if Total Memory is below 4GB, just exit
 MEM2="$(($(awk '/MemTotal/{print $2}' /proc/meminfo)))"
 if [ $MEM2 -lt 3800000 ]; then
- sysctl -e -w vm.swappiness=40
+ #debug
+ echo "Exiting..."
  exit 0
 fi
 
@@ -111,12 +112,5 @@ done
 IFS=$saveifs
 
 # Enjoy a better Android experience, and be kind to someone
-
-# Check again for zram remnants in order to properly set swappiness
-if [ -e /sys/block/zram* ]; then
-		sysctl -e -w vm.swappiness=40
-      else
-		sysctl -e -w vm.swappiness=20
-fi
 
 exit 0
