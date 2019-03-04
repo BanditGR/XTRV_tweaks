@@ -6,3 +6,9 @@ MEM1="$(($(awk '/MemTotal/{print $2}' /proc/meminfo)))"
 MFK=$(($MEM1*3/1024));
 
 sysctl -e -w  vm.min_free_kbytes=$MFK
+
+if [ -e /sys/block/zram* ]; then
+		sysctl -e -w vm.swappiness=40
+      else
+		sysctl -e -w vm.swappiness=20
+fi

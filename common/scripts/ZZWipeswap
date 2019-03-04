@@ -112,4 +112,11 @@ IFS=$saveifs
 
 # Enjoy a better Android experience, and be kind to someone
 
+# Check again for zram remnants in order to properly set swappiness
+if [ -e /sys/block/zram* ]; then
+		sysctl -e -w vm.swappiness=40
+      else
+		sysctl -e -w vm.swappiness=20
+fi
+
 exit 0
