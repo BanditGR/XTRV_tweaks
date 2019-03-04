@@ -4,6 +4,7 @@
 #Credits to McByte jkSGS3
 # and ImbaWind @ XDA
 #v1.1 Added SQLite3 binary location for ROMs that do not natively include the file
+#v1.2 Added Fstrim operation before SQlite optimizations...
 
 # Log file location
      LOG_FILE=/data/sqlite.log
@@ -13,7 +14,7 @@
 	SQLITEBIN=/system/xbin
  
 #Interval between SQLite3 runs, in seconds, 604800=1 week, 432000=5 days
-     RUN_EVERY=432000
+     RUN_EVERY=604800
 
 # Get the last modify date of the Log file, if the file does not exist, set value to 0     
      if [ -e $LOG_FILE ]; then
@@ -38,6 +39,13 @@ if [ $INTERVAL -gt $RUN_EVERY ];then
 	fi;     
 #Set a working path	
   cd /data/
+
+	echo "Now Executing FSTRIM operation..." | tee -a $LOG_FILE;
+	fstrim -v /cache | tee -a $LOG_FILE;
+	fstrim -v /data | tee -a $LOG_FILE;
+	fstrim -v /system | tee -a $LOG_FILE;
+	
+	echo " " | tee -a $LOG_FILE;
 
 	echo "Now Optimizing SQlite databases" | tee -a $LOG_FILE;
 	echo "SQLite database VACUUM and REINDEX started at $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE;
