@@ -1,7 +1,7 @@
 id=redmi_note5_xtrv_tweaks
 name=Redmi Note 5 XTRV tweaks [Whyred]
-version=v1.4
-versionCode=5
+version=v1.5
+versionCode=6
 author=BanditGR
 description=The module integrates the old init.d scripts of the custom MIUI XTRV ROM (Xiaomi-Miui.gr) to Whyred devices, along with a few extra binaries and configuration files for better GPS and balanced system performance
 minMagisk=17000
