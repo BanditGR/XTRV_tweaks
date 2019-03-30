@@ -90,7 +90,7 @@ set_permissions() {
   
   # Set permissions for binaries
   set_perm  $MODPATH/system/xbin/sqlite3 0  0  0755  0755
-  set_perm  $MODPATH/system/xbin/zipalign 0  0  0755  0755
+  #set_perm  $MODPATH/system/xbin/zipalign 0  0  0755  0755
   
   # Set permissions for script execution - Experimental
   set_perm  $MODPATH/scripts/09sdcardspeedfix 0  0  0755  0755
