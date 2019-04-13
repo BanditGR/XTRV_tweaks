@@ -34,12 +34,17 @@ if [ ! -d "$ROOTPATH/$XTRVID" ]; then
  exit 0
 fi;
 
+#Wait 30 seconds before execution - Whyred Pie
+sleep 30
+#Assume swap will be removed
+sysctl -e -w vm.swappiness=20
+
 # Do not disable swap if Total Memory is below 4GB, just exit
 MEM2="$(($(awk '/MemTotal/{print $2}' /proc/meminfo)))"
 if [ $MEM2 -lt 3500000 ]; then
  #debug
  #echo $MEM2 | tee -a /cache/test.log;
- sleep 40
+ sleep 30
  sysctl -e -w vm.swappiness=40
  exit 0
 fi

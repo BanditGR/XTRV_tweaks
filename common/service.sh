@@ -6,6 +6,9 @@ MODDIR=${0%/*}
 # This script will be executed in late_start service mode
 # More info in the main Magisk thread
 
+#With MIUI Pie we have to wait a bit before executing the scripts
+sleep 30
+
 sh $MODDIR/scripts/09sdcardspeedfix
 sh $MODDIR/scripts/S97MemoryTweaks
 sh $MODDIR/scripts/S97SystemOptimizer

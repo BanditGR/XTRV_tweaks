@@ -43,7 +43,7 @@ print_modname() {
   ui_print "************************************************"
   ui_print " Redmi Note 5 XTRV tweaks [Whyred]         "
   ui_print " by BanditGR @ Xiaomi-Miui Hellas  "
-  ui_print "                       v1.5                             "
+  ui_print "                       v1.5b                            "
   ui_print "************************************************"
 }
 
