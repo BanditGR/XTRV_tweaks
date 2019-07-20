@@ -148,7 +148,7 @@ set_permissions
 cd /
 imageless_magisk || unmount_magisk_img
 $BOOTMODE || recovery_cleanup
-rm -rf $TMPDIR $MOUNTPATH
+#rm -rf $TMPDIR $MOUNTPATH
 
 ui_print "- Done"
 exit 0
