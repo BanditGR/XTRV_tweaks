@@ -183,14 +183,14 @@ script_install() {
     ui_print ""
     ui_print "Now installing sh scripts in the module common folder..."
     mkdir -m 755 -p $MODPATH/scripts
-	cp -af $TMPDIR/common/scripts/09sdcardspeedfix $MODPATH/scripts/09sdcardspeedfix
-	cp -af $TMPDIR/common/scripts/S97MemoryTweaks $MODPATH/scripts/S97MemoryTweaks
-	cp -af $TMPDIR/common/scripts/S97SystemOptimizer $MODPATH/scripts/S97SystemOptimizer
-	cp -af $TMPDIR/common/scripts/sysctl_tweaks $MODPATH/scripts/sysctl_tweaks
-	cp -af $TMPDIR/common/scripts/Zsqlite_optimize $MODPATH/scripts/Zsqlite_optimize
-	cp -af $TMPDIR/common/scripts/ZZEnableDocuments $MODPATH/scripts/ZZEnableDocuments
-	cp -af $TMPDIR/common/scripts/ZZLMK $MODPATH/scripts/ZZLMK
-	cp -af $TMPDIR/common/scripts/ZZWipeswap /data/adb/service.d/ZZWipeswap
+	cp -af $TMPDIR/09sdcardspeedfix $MODPATH/scripts/09sdcardspeedfix
+	cp -af $TMPDIR/S97MemoryTweaks $MODPATH/scripts/S97MemoryTweaks
+	cp -af $TMPDIR/S97SystemOptimizer $MODPATH/scripts/S97SystemOptimizer
+	cp -af $TMPDIR/sysctl_tweaks $MODPATH/scripts/sysctl_tweaks
+	cp -af $TMPDIR/Zsqlite_optimize $MODPATH/scripts/Zsqlite_optimize
+	cp -af $TMPDIR/ZZEnableDocuments $MODPATH/scripts/ZZEnableDocuments
+	cp -af $TMPDIR/ZZLMK $MODPATH/scripts/ZZLMK
+	cp -af $TMPDIR/ZZWipeswap /data/adb/service.d/ZZWipeswap
 	ui_print ""
 	ui_print "- It is HIGHLY recommended to have Busybox installed."
 	ui_print "- osm0sis' Busybox can be downloaded and installed from the Magisk repository."
