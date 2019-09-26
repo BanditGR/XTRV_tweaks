@@ -24,7 +24,8 @@
 
 # Exit if no swap in use,
 
-ROOTPATH=/sbin/.core/img
+#Magisk 19.4
+ROOTPATH=/sbin/.magisk/modules 
 XTRVID=redmi_note5_xtrv_tweaks
 
 #Suicide logic in case the module is removed
