@@ -1,10 +1,11 @@
 #!/system/bin/sh
 
-# Redmi Note 5 XTRV tweaks [Whyred] Uninstaller Script
-# Copyright (c) 2018-2019 BanditGR @ Xiaomi-Miui Hellas
+#XTRV tweaks Uninstaller Script
+# Copyright (c) 2018-2020 BanditGR @ Xiaomi-Miui Hellas
 # Licence: MIT
 
-# Uninstalls the module ZZWipeswap file (in Magisk service.d folder)
+# Uninstalls the module ZZWipeswap file (in Magisk service.d folder) if it exists
+# Under normal circumstances the file should not exist, it's just a legacy leftover
 
 MODPATH=${0%/*}
 

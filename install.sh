@@ -123,9 +123,9 @@ REPLACE="
 
 print_modname() {
   ui_print "************************************************"
-  ui_print " Redmi Note 5 XTRV tweaks [Whyred]         "
+  ui_print "              XTRV tweaks                  "
   ui_print " by BanditGR @ Xiaomi-Miui Hellas  "
-  ui_print "                       v1.6                              "
+  ui_print "                       v1.7                              "
   ui_print "************************************************"
   
   # Check Magisk version
@@ -173,7 +173,7 @@ set_permissions() {
   set_perm  $MODPATH/scripts/Zsqlite_optimize 0  0  0755  0755
   set_perm  $MODPATH/scripts/ZZEnableDocuments 0  0  0755  0755
   set_perm  $MODPATH/scripts/ZZLMK 0  0  0755  0755
-  set_perm  /data/adb/service.d/ZZWipeswap 0  0  0755  0755
+ # set_perm  /data/adb/service.d/ZZWipeswap 0  0  0755  0755
 }
 
 # You can add more functions to assist your custom script code
@@ -190,7 +190,7 @@ script_install() {
 	cp -af $TMPDIR/Zsqlite_optimize $MODPATH/scripts/Zsqlite_optimize
 	cp -af $TMPDIR/ZZEnableDocuments $MODPATH/scripts/ZZEnableDocuments
 	cp -af $TMPDIR/ZZLMK $MODPATH/scripts/ZZLMK
-	cp -af $TMPDIR/ZZWipeswap /data/adb/service.d/ZZWipeswap
+	#cp -af $TMPDIR/ZZWipeswap /data/adb/service.d/ZZWipeswap
 	ui_print ""
 	ui_print "- It is HIGHLY recommended to have Busybox installed."
 	ui_print "- osm0sis' Busybox can be downloaded and installed from the Magisk repository."
