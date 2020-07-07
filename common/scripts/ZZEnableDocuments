@@ -1,5 +1,5 @@
 #!/system/bin/sh
-#Enable Documents App
+#Enable Documents App (if available)
 #Logfile Creation
 LOG1=/cache/documents.log;
 
@@ -16,4 +16,5 @@ uptime -s | tee -a $LOG1;
 echo "Enabling Documents App @ $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG1;
 sleep 60
 pm enable com.android.documentsui | tee -a $LOG1;
+pm enable com.google.android.documentsui | tee -a $LOG1;
 echo "Script Done @ $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG1;
