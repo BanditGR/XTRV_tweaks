@@ -6,6 +6,9 @@
 #v1.1 Added SQLite3 binary location for ROMs that do not natively include the file
 #v1.2 Added Fstrim operation before SQlite optimizations...
 # Fstrim requires Busybox installed or the command will not be properly executed
+#v1.3 Added 1m delayed execution for Android 10+
+
+sleep 60
 
 # Log file location
      LOG_FILE=/data/sqlite.log
